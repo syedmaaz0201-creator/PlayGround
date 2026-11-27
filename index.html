@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="theme-color" content="#090b0d" />
+  <title>THE LAST SANCTUARY: THE DEVGHAR EXPERIMENT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main id="game-shell">
+    <canvas id="world" aria-label="3D survival horror game"></canvas>
+    <div class="film-grain"></div>
+    <div class="vignette"></div>
+    <div id="hud" class="hidden">
+      <header class="topbar">
+        <div class="brand"><span class="brand-mark">LS</span><span>THE LAST <b>SANCTUARY</b><small>DEVGHAR DISTRICT · 03:17 AM</small></span></div>
+        <div class="chapter-tag"><span class="live-dot"></span><span id="chapter-name">CHAPTER 01</span><i>/</i><span id="chapter-place">THE SILENT TOWN</span></div>
+        <button id="pause-button" class="icon-button" aria-label="Pause">Ⅱ</button>
+      </header>
+      <section class="mission-panel">
+        <div class="eyebrow">CURRENT OBJECTIVE <span id="objective-count">01 / 03</span></div>
+        <div id="objective-title" class="objective-title">Find a way into the clinic</div>
+        <div id="objective-detail" class="objective-detail">The road ends at the old dispensary.</div>
+        <div class="objective-rule"><span></span></div>
+      </section>
+      <div class="right-rail">
+        <div class="compass"><span>N</span><div class="compass-line"></div><b id="distance">— M</b></div>
+        <div class="signal"><span class="signal-bars"><i></i><i></i><i></i></span>NO SIGNAL</div>
+      </div>
+      <section class="survival-hud">
+        <div class="health-wrap"><div class="hud-label">VITALS <span id="health-value">100</span></div><div class="health-track"><div id="health-fill"></div></div><div id="status-text">STABLE · ADRENALINE ACTIVE</div></div>
+        <div class="weapon-wrap"><span class="weapon-icon">⌁</span><div><div class="hud-label" id="weapon-name">SERVICE REVOLVER</div><div class="ammo"><strong id="ammo-loaded">06</strong><span> / </span><span id="ammo-reserve">18</span><small> ROUNDS</small></div></div><div class="weapon-key">R<br><small>RELOAD</small></div></div>
+      </section>
+      <section class="bottom-tools">
+        <button id="inventory-button" class="tool-button"><span class="tool-key">TAB</span><span>FIELD KIT</span><b id="inventory-count">03</b></button>
+        <button id="flashlight-button" class="tool-button"><span class="tool-key">F</span><span>FLASHLIGHT</span><b id="light-state">ON</b></button>
+        <div class="control-hint"><span>W A S D</span> MOVE <i>·</i> <span>SHIFT</span> RUN <i>·</i> <span>E</span> INTERACT <i>·</i> <span>CLICK</span> FIRE</div>
+      </section>
+      <div id="interaction-prompt" class="interaction-prompt hidden"><span class="keycap">E</span><span id="prompt-text">Investigate</span></div>
+      <div id="toast" class="toast hidden"></div>
+      <div id="damage-flash"></div>
+      <div id="crosshair"><i></i><b></b></div>
+      <div id="inventory-panel" class="panel hidden">
+        <div class="panel-kicker">ARJUN RAO · FIELD RECORD</div><div class="panel-heading">FIELD KIT</div>
+        <div class="inventory-grid" id="inventory-grid"></div>
+        <div class="panel-note">The things we carry tell the story of what we survived.</div>
+      </div>
+      <div id="pause-panel" class="panel pause-panel hidden">
+        <div class="panel-kicker">DEVGHAR DISTRICT · 03:17 AM</div><div class="panel-heading">PAUSED</div>
+        <button id="resume-button" class="primary-button">RESUME INVESTIGATION <span>↗</span></button>
+        <button id="save-button" class="secondary-button">SAVE CHECKPOINT</button>
+        <div class="save-message" id="save-message">Progress saves automatically at each chapter.</div>
+      </div>
+      <div id="chapter-card" class="chapter-card hidden"><div class="chapter-card-kicker">CHAPTER <span id="card-number">01</span> · DEVGHAR, INDIA</div><h1 id="card-title">THE SILENT TOWN</h1><p id="card-quote">“The rain has a way of washing away the footprints. Not the voices.”</p><div class="card-rule"></div><span>INVESTIGATION LOG UPDATED</span></div>
+      <div id="dialogue" class="dialogue hidden"><div class="speaker">ARJUN RAO <span>· VOICE MEMO</span></div><p id="dialogue-text"></p><div class="dialogue-next">PRESS <b>E</b> TO CONTINUE</div></div>
+      <div id="mobile-controls" class="mobile-controls">
+        <div class="touch-stick" id="touch-stick"><div class="stick-knob"></div></div>
+        <div class="mobile-actions"><button id="mobile-interact">E</button><button id="mobile-fire">◉</button><button id="mobile-run">⇧</button></div>
+      </div>
+    </div>
+    <section id="title-screen" class="title-screen">
+      <div class="title-image"></div><div class="title-shade"></div>
+      <div class="title-content">
+        <div class="title-overline"><span class="title-dot"></span> AN ORIGINAL SURVIVAL HORROR EXPERIENCE</div>
+        <div class="title-logo"><span>THE LAST</span><strong>SANCTUARY</strong></div>
+        <div class="title-subtitle">THE DEVGHAR EXPERIMENT</div>
+        <div class="title-divider"><span></span><i>01 — 05</i><span></span></div>
+        <p class="title-description">A sister vanished. A town went silent.<br>Some things should never have been brought back to life.</p>
+        <button id="start-button" class="primary-button">BEGIN INVESTIGATION <span>↗</span></button>
+        <button id="continue-button" class="text-button hidden">CONTINUE CHECKPOINT <span>→</span></button>
+        <div class="title-footer"><span>CHAPTERS 01—05 · A COMPLETE FIRST ACT</span><span>HEADPHONES RECOMMENDED</span></div>
+      </div>
+      <div class="title-side-note">DEVGHAR · 27° 11' N<br>MONSOON SEASON · 1998</div>
+    </section>
+    <section id="ending-screen" class="ending-screen hidden">
+      <div class="ending-kicker">END OF FIRST ACT · TRANSMISSION LOST</div><h2>THE SANCTUARY<br>WAS NEVER A CURE.</h2>
+      <p id="ending-copy">Beyond the sealed door, something answers Isha's voice.</p>
+      <div class="future-note">THE INVESTIGATION CONTINUES<br><span>CHAPTERS 06—12 · COMING NEXT</span></div>
+      <button id="restart-button" class="primary-button">RETURN TO DEVGHAR <span>↗</span></button>
+    </section>
+    <div id="loading-screen"><div class="loading-mark">LS</div><span>RESTORING THE SILENCE</span><i></i></div>
+  </main>
+  <script type="module" src="game.js"></script>
+</body>
+</html>
